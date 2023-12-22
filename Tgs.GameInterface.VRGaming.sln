@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34309.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tgs.GameInterface.VRGaming", "Tgs.GameInterface.VRGaming\Tgs.GameInterface.VRGaming.csproj", "{119B62D3-0C22-4383-98BB-481F2BE184E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tgs.GameInterface.VRGaming.Core", "Tgs.GameInterface.VRGaming.Core\Tgs.GameInterface.VRGaming.Core.csproj", "{6D6BADA7-891B-45EB-BA62-716FE46BF1BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tgs.GameInterface.VRGaming.Core.UnitTest", "Tgs.GameInterface.VRGaming.Core.UnitTest\Tgs.GameInterface.VRGaming.Core.UnitTest.csproj", "{60F4FDC9-7E48-444D-A805-32F24CADF723}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{119B62D3-0C22-4383-98BB-481F2BE184E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{119B62D3-0C22-4383-98BB-481F2BE184E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{119B62D3-0C22-4383-98BB-481F2BE184E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{119B62D3-0C22-4383-98BB-481F2BE184E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D6BADA7-891B-45EB-BA62-716FE46BF1BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D6BADA7-891B-45EB-BA62-716FE46BF1BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D6BADA7-891B-45EB-BA62-716FE46BF1BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D6BADA7-891B-45EB-BA62-716FE46BF1BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60F4FDC9-7E48-444D-A805-32F24CADF723}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60F4FDC9-7E48-444D-A805-32F24CADF723}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60F4FDC9-7E48-444D-A805-32F24CADF723}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60F4FDC9-7E48-444D-A805-32F24CADF723}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1BB5F455-732E-48D5-8A38-F992F9D53DC1}
+	EndGlobalSection
+EndGlobal
