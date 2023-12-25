@@ -18,13 +18,12 @@ public class TransactionRecordUnitTest
     {
         Uri apiUrl = new Uri("https://fe.vrbetdemo.com/");
         var version = "1.0";
-        var merchantid = "PEGA";
+        var merchantId = "PEGA";
         var deskey = "8VF408JBV2B406488F2VH2X684T6R6DV";
         var playerName = "4ucmqplxb029";
         var serialNumber = "018c8f8f201f0000000107e7db655fdb";
         var startTime = new DateTimeOffset(2023, 12, 22, 3, 27, 00, TimeSpan.Zero);
         var endTime = new DateTimeOffset(2023, 12, 22, 3, 42, 00, TimeSpan.Zero);
-
 
         var fakeCryptography = Substitute.For<IAesCryptographyUtensil>();
         var fakeSystemClock = Substitute.For<ISystemClock>();
@@ -48,7 +47,7 @@ public class TransactionRecordUnitTest
         var data = new JsonObject
         {
             ["version"] = version,
-            ["id"] = merchantid,
+            ["id"] = merchantId,
             ["data"] = dataEncrypt,
         };
         var requestContent = new StringContent(data.ToJsonString(), Encoding.UTF8, MediaTypeNames.Application.Json);
@@ -78,7 +77,7 @@ public class TransactionRecordUnitTest
         var actual = await client.TransactionRecordAsync(
             apiUrl: apiUrl,
             version: version,
-            merchantid: merchantid,
+            merchantId: merchantId,
             deskey: deskey,
             playerName: playerName,
             serialNumber: serialNumber,
@@ -93,13 +92,12 @@ public class TransactionRecordUnitTest
     {
         Uri apiUrl = new Uri("https://fe.vrbetdemo.com/");
         var version = "1.0";
-        var merchantid = "PEGA";
+        var merchantId = "PEGA";
         var deskey = "8VF408JBV2B406488F2VH2X684T6R6DV";
         var playerName = "4ucmqplxb029";
         var serialNumber = "018c8f8ee6a60000000107e7db655fdb";
         var startTime = new DateTimeOffset(2023, 12, 22, 3, 27, 00, TimeSpan.Zero);
         var endTime = new DateTimeOffset(2023, 12, 22, 3, 42, 00, TimeSpan.Zero);
-
 
         var fakeCryptography = Substitute.For<IAesCryptographyUtensil>();
         var fakeSystemClock = Substitute.For<ISystemClock>();
@@ -123,7 +121,7 @@ public class TransactionRecordUnitTest
         var data = new JsonObject
         {
             ["version"] = version,
-            ["id"] = merchantid,
+            ["id"] = merchantId,
             ["data"] = dataEncrypt,
         };
         var requestContent = new StringContent(data.ToJsonString(), Encoding.UTF8, MediaTypeNames.Application.Json);
@@ -153,7 +151,7 @@ public class TransactionRecordUnitTest
         var actual = await client.TransactionRecordAsync(
             apiUrl: apiUrl,
             version: version,
-            merchantid: merchantid,
+            merchantId: merchantId,
             deskey: deskey,
             playerName: playerName,
             serialNumber: serialNumber,
@@ -168,13 +166,12 @@ public class TransactionRecordUnitTest
     {
         Uri apiUrl = new Uri("https://fe.vrbetdemo.com/");
         var version = "1.0";
-        var merchantid = "PEGA";
+        var merchantId = "PEGA";
         var deskey = "8VF408JBV2B406488F2VH2X684T6R6DV";
         var playerName = "4ucmqplxb029";
         var serialNumber = "018c8f8ee6a60000000107e7db655fdb";
         var startTime = new DateTimeOffset(2023, 12, 22, 3, 27, 00, TimeSpan.Zero);
         var endTime = new DateTimeOffset(2023, 12, 22, 3, 42, 00, TimeSpan.Zero);
-
 
         var fakeCryptography = Substitute.For<IAesCryptographyUtensil>();
         var fakeSystemClock = Substitute.For<ISystemClock>();
@@ -198,7 +195,7 @@ public class TransactionRecordUnitTest
         var data = new JsonObject
         {
             ["version"] = version,
-            ["id"] = merchantid,
+            ["id"] = merchantId,
             ["data"] = dataEncrypt,
         };
         var requestContent = new StringContent(data.ToJsonString(), Encoding.UTF8, MediaTypeNames.Application.Json);
@@ -229,7 +226,7 @@ public class TransactionRecordUnitTest
             () => client.TransactionRecordAsync(
                 apiUrl: apiUrl,
                 version: version,
-                merchantid: merchantid,
+                merchantId: merchantId,
                 deskey: deskey,
                 playerName: playerName,
                 serialNumber: serialNumber,

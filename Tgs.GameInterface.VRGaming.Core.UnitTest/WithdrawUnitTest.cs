@@ -16,7 +16,7 @@ public class WithdrawUnitTest
     {
         Uri apiUrl = new Uri("https://fe.vrbetdemo.com/");
         var version = "1.0";
-        var merchantid = "PEGA";
+        var merchantId = "PEGA";
         var deskey = "8VF408JBV2B406488F2VH2X684T6R6DV";
         var playerName = "4ucmqplxb029";
         var serialNumber = "018c8f8ee6a60000000107e7db655fdb";
@@ -46,7 +46,7 @@ public class WithdrawUnitTest
         var data = new JsonObject
         {
             ["version"] = version,
-            ["id"] = merchantid,
+            ["id"] = merchantId,
             ["data"] = dataEncrypt,
         };
         var requestContent = new StringContent(data.ToJsonString(), Encoding.UTF8, MediaTypeNames.Application.Json);
@@ -76,7 +76,7 @@ public class WithdrawUnitTest
         var actual = await client.DepositAsync(
             apiUrl: apiUrl,
             version: version,
-            merchantid: merchantid,
+            merchantId: merchantId,
             deskey: deskey,
             playerName: playerName,
             serialNumber: serialNumber,

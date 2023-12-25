@@ -3,6 +3,6 @@
 public record PlayerBalanceQuery(
     Uri ApiUrl,
     string Version,
-    string Merchantid,
+    string MerchantId,
     string Deskey,
     string PlayerCode);

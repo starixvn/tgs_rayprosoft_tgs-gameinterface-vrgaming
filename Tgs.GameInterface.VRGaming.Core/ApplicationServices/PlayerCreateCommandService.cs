@@ -10,7 +10,7 @@ internal class PlayerCreateCommandService(IGameApiClient client) : ICommandServi
         => client.CreateUserAsync(
             apiUrl: command.ApiUrl,
             version: command.Version,
-            merchantid: command.Merchantid,
+            merchantId: command.MerchantId,
             deskey: command.Deskey,
             playerName: command.PlayerCode,
             cancellationToken: cancellationToken);

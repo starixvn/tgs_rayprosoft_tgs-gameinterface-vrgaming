@@ -10,7 +10,7 @@ internal class FundOutGetService(
         var response = await client.DepositAsync(
             apiUrl: query.ApiUrl,
             version: query.Version,
-            merchantid: query.Merchantid,
+            merchantId: query.MerchantId,
             deskey: query.Deskey,
             playerName: query.PlayerCode,
             serialNumber: query.OrderId,

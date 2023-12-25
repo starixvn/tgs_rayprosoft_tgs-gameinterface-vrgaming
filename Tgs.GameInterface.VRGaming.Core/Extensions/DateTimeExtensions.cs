@@ -22,5 +22,4 @@ public static class DateTimeExtensions
 
     public static string ToDateTimeOffsettString(this DateTimeOffset dateTime)
         => dateTime.UtcDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ");
-
 }

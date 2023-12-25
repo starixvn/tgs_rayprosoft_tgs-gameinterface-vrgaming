@@ -12,7 +12,7 @@ public class PlayerLogoutCommandServiceUnitTest
         var command = new PlayerLogoutCommand(
             ApiUrl: new Uri("https://fe.vrbetdemo.com/"),
             Version: "1.0",
-            Merchantid: "PEGA",
+            MerchantId: "PEGA",
             Deskey: "8VF408JBV2B406488F2VH2X684T6R6DV",
             PlayerCode: "4ucmqplxb029");
 
@@ -28,7 +28,7 @@ public class PlayerLogoutCommandServiceUnitTest
             .KickUserAsync(
             apiUrl: Arg.Is(command.ApiUrl),
             version: Arg.Is(command.Version),
-            merchantid: Arg.Is(command.Merchantid),
+            merchantId: Arg.Is(command.MerchantId),
             deskey: Arg.Is(command.Deskey),
             playerName: Arg.Is(command.PlayerCode),
             cancellationToken: Arg.Any<CancellationToken>());

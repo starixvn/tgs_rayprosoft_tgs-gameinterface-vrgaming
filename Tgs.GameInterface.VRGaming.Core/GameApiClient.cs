@@ -27,7 +27,7 @@ internal class GameApiClient(
     IAesCryptographyUtensil cryptographyUtensil,
     HttpClient client) : IGameApiClient
 {
-    public async ValueTask<BalanceResponse> BalanceAsync(Uri apiUrl, string version, string merchantid, string deskey, string playerName, CancellationToken cancellationToken = default)
+    public async ValueTask<BalanceResponse> BalanceAsync(Uri apiUrl, string version, string merchantId, string deskey, string playerName, CancellationToken cancellationToken = default)
     {
         var parameters = new JsonObject
         {
@@ -40,7 +40,7 @@ internal class GameApiClient(
             apiUrl: apiUrl,
             logPrefix: "UserWallet.Balance",
             version: version,
-            merchantid: merchantid,
+            merchantId: merchantId,
             deskey: deskey,
             parameters: parameters,
             cancellationToken: cancellationToken)
@@ -53,7 +53,7 @@ internal class GameApiClient(
             Balance: balance);
     }
 
-    public async ValueTask CreateUserAsync(Uri apiUrl, string version, string merchantid, string deskey, string playerName, CancellationToken cancellationToken = default)
+    public async ValueTask CreateUserAsync(Uri apiUrl, string version, string merchantId, string deskey, string playerName, CancellationToken cancellationToken = default)
     {
         var parameters = new JsonObject
         {
@@ -66,7 +66,7 @@ internal class GameApiClient(
             apiUrl: apiUrl,
             logPrefix: "Account.CreateUser",
             version: version,
-            merchantid: merchantid,
+            merchantId: merchantId,
             deskey: deskey,
             parameters: parameters,
             cancellationToken: cancellationToken)
@@ -78,7 +78,7 @@ internal class GameApiClient(
         }
     }
 
-    public async ValueTask<TransactionResponse> DepositAsync(Uri apiUrl, string version, string merchantid, string deskey, string playerName, string serialNumber, decimal amount, CancellationToken cancellationToken = default)
+    public async ValueTask<TransactionResponse> DepositAsync(Uri apiUrl, string version, string merchantId, string deskey, string playerName, string serialNumber, decimal amount, CancellationToken cancellationToken = default)
     {
         var parameters = new JsonObject
         {
@@ -95,7 +95,7 @@ internal class GameApiClient(
             apiUrl: apiUrl,
             logPrefix: "UserWallet.Transaction.Deposit",
             version: version,
-            merchantid: merchantid,
+            merchantId: merchantId,
             deskey: deskey,
             parameters: parameters,
             cancellationToken: cancellationToken)
@@ -108,7 +108,7 @@ internal class GameApiClient(
             jsonNode.ToJsonString());
     }
 
-    public async ValueTask KickUserAsync(Uri apiUrl, string version, string merchantid, string deskey, string playerName, CancellationToken cancellationToken = default)
+    public async ValueTask KickUserAsync(Uri apiUrl, string version, string merchantId, string deskey, string playerName, CancellationToken cancellationToken = default)
     {
         var parameters = new JsonObject
         {
@@ -121,7 +121,7 @@ internal class GameApiClient(
             apiUrl: apiUrl,
             logPrefix: "Account.KickUser",
             version: version,
-            merchantid: merchantid,
+            merchantId: merchantId,
             deskey: deskey,
             parameters: parameters,
             cancellationToken: cancellationToken)
@@ -133,7 +133,7 @@ internal class GameApiClient(
         }
     }
 
-    public async ValueTask<string> LoginValidateAsync(Uri apiUrl, string version, string merchantid, string deskey, string playerName, int channelId = 0, CancellationToken cancellationToken = default)
+    public async ValueTask<string> LoginValidateAsync(Uri apiUrl, string version, string merchantId, string deskey, string playerName, int channelId = 0, CancellationToken cancellationToken = default)
     {
         var parameters = new JsonObject
         {
@@ -156,7 +156,7 @@ internal class GameApiClient(
         var builder = new UriBuilder(gameUrl);
         var query = HttpUtility.ParseQueryString(builder.Query);
         query["version"] = version;
-        query["id"] = merchantid;
+        query["id"] = merchantId;
         query["data"] = dataEncrypt;
         builder.Query = query.ToString();
 
@@ -177,15 +177,15 @@ internal class GameApiClient(
         return builder.ToString();
     }
 
-    public async IAsyncEnumerable<MerchantQueryResponse> MerchantQueryBetAsync(Uri apiUrl, string version, string merchantid, string deskey, DateTimeOffset startTime, DateTimeOffset endTime, int recordPage = 0, int recordCountPerPage = 1000, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<MerchantQueryResponse> MerchantQueryBetAsync(Uri apiUrl, string version, string merchantId, string deskey, bool isUpdateTime, MerchantQueryBetStates state, DateTimeOffset startTime, DateTimeOffset endTime, int recordPage = 0, int recordCountPerPage = 1000, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         var parameters = new JsonObject
         {
             ["startTime"] = startTime.ToDateTimeOffsettString(),
             ["endTime"] = endTime.ToDateTimeOffsettString(),
             ["channelId"] = -1,
-            ["isUpdateTime"] = true,
-            ["state"] = -1,
+            ["isUpdateTime"] = isUpdateTime,
+            ["state"] = (int)state,
             ["betNumberFormat"] = 0,
             ["recordPage"] = recordPage,
             ["recordCountPerPage"] = recordCountPerPage,
@@ -197,7 +197,7 @@ internal class GameApiClient(
             apiUrl: apiUrl,
             logPrefix: "MerchantQuery.Bet",
             version: version,
-            merchantid: merchantid,
+            merchantId: merchantId,
             deskey: deskey,
             parameters: parameters,
             cancellationToken: cancellationToken)
@@ -229,12 +229,12 @@ internal class GameApiClient(
                 PlayerPrize: betRecord["playerPrize"]!.GetValue<decimal>(),
                 LossPrize: betRecord["lossPrize"]!.GetValue<decimal>(),
                 CreateTime: betRecord["createTime"]!.GetValue<DateTimeOffset>(),
-                UpdateTime: betRecord["updateTime"]!.GetValue<DateTimeOffset>(),
+                UpdateTime: betRecord["updateTime"]?.GetValue<DateTimeOffset>() ?? betRecord["createTime"]!.GetValue<DateTimeOffset>(),
                 AdditionalData: betRecord.ToJsonString());
         }
     }
 
-    public async ValueTask<bool> TransactionRecordAsync(Uri apiUrl, string version, string merchantid, string deskey, string playerName, string serialNumber, DateTimeOffset startTime, DateTimeOffset endTime, CancellationToken cancellationToken = default)
+    public async ValueTask<bool> TransactionRecordAsync(Uri apiUrl, string version, string merchantId, string deskey, string playerName, string serialNumber, DateTimeOffset startTime, DateTimeOffset endTime, CancellationToken cancellationToken = default)
     {
         var parameters = new JsonObject
         {
@@ -252,7 +252,7 @@ internal class GameApiClient(
             apiUrl: apiUrl,
             logPrefix: "UserWallet.TransactionRecord",
             version: version,
-            merchantid: merchantid,
+            merchantId: merchantId,
             deskey: deskey,
             parameters: parameters,
             cancellationToken: cancellationToken)
@@ -268,7 +268,7 @@ internal class GameApiClient(
             : true);
     }
 
-    public async ValueTask<TransactionResponse> WithdrawAsync(Uri apiUrl, string version, string merchantid, string deskey, string playerName, string serialNumber, decimal amount, CancellationToken cancellationToken = default)
+    public async ValueTask<TransactionResponse> WithdrawAsync(Uri apiUrl, string version, string merchantId, string deskey, string playerName, string serialNumber, decimal amount, CancellationToken cancellationToken = default)
     {
         var parameters = new JsonObject
         {
@@ -285,7 +285,7 @@ internal class GameApiClient(
             apiUrl: apiUrl,
             logPrefix: "UserWallet.Transaction.Withdraw",
             version: version,
-            merchantid: merchantid,
+            merchantId: merchantId,
             deskey: deskey,
             parameters: parameters,
             cancellationToken: cancellationToken)
@@ -298,7 +298,7 @@ internal class GameApiClient(
             jsonNode.ToJsonString());
     }
 
-    private async ValueTask<JsonNode> PostAsync(Uri apiUrl, string logPrefix, string version, string merchantid, string deskey, JsonNode parameters, CancellationToken cancellationToken = default)
+    private async ValueTask<JsonNode> PostAsync(Uri apiUrl, string logPrefix, string version, string merchantId, string deskey, JsonNode parameters, CancellationToken cancellationToken = default)
     {
         logPrefix = $"{nameof(GameApiClient)}.{logPrefix}";
 
@@ -311,7 +311,7 @@ internal class GameApiClient(
         var data = new JsonObject
         {
             ["version"] = version,
-            ["id"] = merchantid,
+            ["id"] = merchantId,
             ["data"] = dataEncrypt,
         };
 
@@ -348,7 +348,6 @@ internal class GameApiClient(
         }
         catch
         {
-
             contentDecrypt = string.Empty;
         }
 

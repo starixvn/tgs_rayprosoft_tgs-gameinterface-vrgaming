@@ -1,8 +1,10 @@
-﻿using Microsoft.Extensions.Logging.Abstractions;
+﻿using System.Text.Json;
+
+using System.Text.Json.Nodes;
+
+using Microsoft.Extensions.Logging.Abstractions;
 using NSubstitute;
 using RichardSzalay.MockHttp;
-using System.Text.Json.Nodes;
-using System.Text.Json;
 
 namespace Tgs.GameInterface.VRGaming.Core.UnitTest;
 
@@ -13,7 +15,7 @@ public class LoginValidateUnitTest
     {
         Uri apiUrl = new Uri("https://fe.vrbetdemo.com/");
         var version = "1.0";
-        var merchantid = "PEGA";
+        var merchantId = "PEGA";
         var deskey = "8VF408JBV2B406488F2VH2X684T6R6DV";
         var playerName = "4ucmqplxb029";
         var channelId = 0;
@@ -52,7 +54,7 @@ public class LoginValidateUnitTest
         var actual = await client.LoginValidateAsync(
             apiUrl: apiUrl,
             version: version,
-            merchantid: merchantid,
+            merchantId: merchantId,
             deskey: deskey,
             playerName: playerName,
             channelId: channelId);

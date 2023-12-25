@@ -12,7 +12,7 @@ public class PlayerBalanceGetServiceUnitTest
         var query = new PlayerBalanceQuery(
             ApiUrl: new Uri("https://fe.vrbetdemo.com/"),
             Version: "1.0",
-            Merchantid: "PEGA",
+            MerchantId: "PEGA",
             Deskey: "8VF408JBV2B406488F2VH2X684T6R6DV",
             PlayerCode: "4ucmqplxb029");
 
@@ -24,7 +24,7 @@ public class PlayerBalanceGetServiceUnitTest
         _ = fakeGameApiClient.BalanceAsync(
             apiUrl: Arg.Is(query.ApiUrl),
             version: Arg.Is(query.Version),
-            merchantid: Arg.Is(query.Merchantid),
+            merchantId: Arg.Is(query.MerchantId),
             deskey: Arg.Is(query.Deskey),
             playerName: Arg.Is(query.PlayerCode),
             cancellationToken: Arg.Any<CancellationToken>())

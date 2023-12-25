@@ -17,12 +17,14 @@ namespace Tgs.GameInterface.VRGaming.Core.UnitTest;
 public class MerchantQueryBetUnitTest
 {
     [Fact]
-    public async void Normal_Process()
+    public async void Settled()
     {
         Uri apiUrl = new Uri("https://fe.vrbetdemo.com/");
         var version = "1.0";
-        var merchantid = "PEGA";
+        var merchantId = "PEGA";
         var deskey = "8VF408JBV2B406488F2VH2X684T6R6DV";
+        var isUpdateTime = true;
+        var state = MerchantQueryBetStates.Unsettled;
         var startTime = new DateTimeOffset(2023, 12, 22, 07, 08, 00, TimeSpan.Zero);
         var endTime = new DateTimeOffset(2023, 12, 22, 07, 13, 00, TimeSpan.Zero);
         var recordPage = 0;
@@ -36,8 +38,8 @@ public class MerchantQueryBetUnitTest
             ["startTime"] = startTime.UtcDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ"),
             ["endTime"] = endTime.UtcDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ"),
             ["channelId"] = -1,
-            ["isUpdateTime"] = true,
-            ["state"] = -1,
+            ["isUpdateTime"] = isUpdateTime,
+            ["state"] = (int)state,
             ["betNumberFormat"] = 0,
             ["recordPage"] = recordPage,
             ["recordCountPerPage"] = recordCountPerPage,
@@ -52,7 +54,7 @@ public class MerchantQueryBetUnitTest
         var data = new JsonObject
         {
             ["version"] = version,
-            ["id"] = merchantid,
+            ["id"] = merchantId,
             ["data"] = dataEncrypt,
         };
         var requestContent = new StringContent(data.ToJsonString(), Encoding.UTF8, MediaTypeNames.Application.Json);
@@ -82,8 +84,10 @@ public class MerchantQueryBetUnitTest
         var actual = await client.MerchantQueryBetAsync(
             apiUrl: apiUrl,
             version: version,
-            merchantid: merchantid,
+            merchantId: merchantId,
             deskey: deskey,
+            isUpdateTime: isUpdateTime,
+            state: state,
             startTime: startTime,
             endTime: endTime,
             recordPage: recordPage,
@@ -110,8 +114,10 @@ public class MerchantQueryBetUnitTest
     {
         Uri apiUrl = new Uri("https://fe.vrbetdemo.com/");
         var version = "1.0";
-        var merchantid = "PEGA";
+        var merchantId = "PEGA";
         var deskey = "8VF408JBV2B406488F2VH2X684T6R6DV";
+        var isUpdateTime = true;
+        var state = MerchantQueryBetStates.All;
         var startTime = new DateTimeOffset(2023, 12, 22, 07, 08, 00, TimeSpan.Zero);
         var endTime = new DateTimeOffset(2023, 12, 22, 07, 13, 00, TimeSpan.Zero);
         var recordPage = 0;
@@ -125,8 +131,8 @@ public class MerchantQueryBetUnitTest
             ["startTime"] = startTime.UtcDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ"),
             ["endTime"] = endTime.UtcDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ"),
             ["channelId"] = -1,
-            ["isUpdateTime"] = true,
-            ["state"] = -1,
+            ["isUpdateTime"] = isUpdateTime,
+            ["state"] = (int)state,
             ["betNumberFormat"] = 0,
             ["recordPage"] = recordPage,
             ["recordCountPerPage"] = recordCountPerPage,
@@ -141,7 +147,7 @@ public class MerchantQueryBetUnitTest
         var data = new JsonObject
         {
             ["version"] = version,
-            ["id"] = merchantid,
+            ["id"] = merchantId,
             ["data"] = dataEncrypt,
         };
         var requestContent = new StringContent(data.ToJsonString(), Encoding.UTF8, MediaTypeNames.Application.Json);
@@ -171,8 +177,10 @@ public class MerchantQueryBetUnitTest
         var actual = await client.MerchantQueryBetAsync(
             apiUrl: apiUrl,
             version: version,
-            merchantid: merchantid,
+            merchantId: merchantId,
             deskey: deskey,
+            isUpdateTime: isUpdateTime,
+            state: state,
             startTime: startTime,
             endTime: endTime,
             recordPage: recordPage,
@@ -181,5 +189,98 @@ public class MerchantQueryBetUnitTest
             ?? Enumerable.Empty<MerchantQueryResponse>();
 
         Assert.False(actual.Any());
+    }
+
+    [Fact]
+    public async void Unsettled()
+    {
+        Uri apiUrl = new Uri("https://fe.vrbetdemo.com/");
+        var version = "1.0";
+        var merchantId = "PEGA";
+        var deskey = "8VF408JBV2B406488F2VH2X684T6R6DV";
+        var isUpdateTime = true;
+        var state = MerchantQueryBetStates.Unsettled;
+        var startTime = new DateTimeOffset(2023, 12, 25, 01, 20, 00, TimeSpan.Zero);
+        var endTime = new DateTimeOffset(2023, 12, 25, 01, 30, 00, TimeSpan.Zero);
+        var recordPage = 0;
+        var recordCountPerPage = 1000;
+
+        var fakeCryptography = Substitute.For<IAesCryptographyUtensil>();
+        var fakeSystemClock = Substitute.For<ISystemClock>();
+
+        var parameters = new JsonObject
+        {
+            ["startTime"] = startTime.UtcDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ"),
+            ["endTime"] = endTime.UtcDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ"),
+            ["channelId"] = -1,
+            ["isUpdateTime"] = isUpdateTime,
+            ["state"] = (int)state,
+            ["betNumberFormat"] = 0,
+            ["recordPage"] = recordPage,
+            ["recordCountPerPage"] = recordCountPerPage,
+        };
+        var dataEncrypt = "cXiY5p1vADpS7ACz/B2IuebVrt0QKoNV9jivoZXLDGxXs87ITKQGMpD7B6cOmoPx/2ryu4EC65MhVchSFAaeplBCiqF9DNmUBuItqhXm6jyg44hZNW1AtmzjVLG5p8sbqm8WJLNfWFU4/Z9dTXGZGXPzngYG965ZJmUo3gNBtvWTCZ8F5zxcY50tU0yTxUzmqkmKpL8iE2Tvx6/oDa551bt7adN/KstaaOIUpqQLWYYtqhgRivz91wTr/HHeSWrj";
+        _ = fakeCryptography.EncryptionAsync(
+            data: Arg.Is(parameters.ToJsonString()),
+            secretKey: Arg.Is(deskey),
+            cancellationToken: Arg.Any<CancellationToken>())
+            .Returns(dataEncrypt);
+
+        var data = new JsonObject
+        {
+            ["version"] = version,
+            ["id"] = merchantId,
+            ["data"] = dataEncrypt,
+        };
+        var requestContent = new StringContent(data.ToJsonString(), Encoding.UTF8, MediaTypeNames.Application.Json);
+        var uriBuilder = new UriBuilder(new Uri(apiUrl, "/MerchantQuery/Bet"));
+        var responseContent = "AwgB7Fh2xGt4lK/WHLk6OsG6q+iYawoNkrtmA+bzMlNlQLkS2cGm1+tCYgBKgVHH6T0QAficMy36m5WLvOwieLAuoDcLuCdZEXYhXtnzCCpumkwVwIBvKQFNzjKq6BxF8Hu4kSwn6ojqaIP+BM+V2AJM0nxlNeMeVlaJV9GPYdE98x6p7E3FUu0sH4gf4o7Po3i1iP3tl0hlWMrt+HcEtye/smH03mYQSF+WeREqNNtS3NSb+TLnE0BPtz9dzvE1ABRmO81bYT704ALFWGbOuI94lPMmLIqsickVBdOOU5/tpQzASSpXk+eSH388eo915aL/f5vFcqRaZCVJXdqdrhMOqvFfxMcGuU4MxHq0vI3QwN9NxIx+uCdKeuZDRgp3tWBVru44EWyjJZL97z6vhT9uMtM6Tj5p7IAyvh/XnOfFR73o82Yy6AfrThl/+S92bp+3kUcR2iyhO9Td9gNaV9lvS6y0nbdogD2y5BS/GAYx9jX47ZfCys674d98NSR1gvQynLDWBfoJdN1UVcdCUC2PRZuhzLnUo+gEh25+a4dz/2GD3xgOdxpqMrSaBn400e1EKoFPTvH5BJqpsNSfZum9N3NZaAId7sUUrmoSgnnCgCXGqKhQgeTjfQe8egPXG+tHnCbkbbGkiEDBEetDuamPhbK803iwNqjkpDzuH6P6+ovRxBSzRcj4aOh4vsYR9aHZJBjMfPNDZL6SYXkfuz0fRNvKG1zLCtLwaSBKawc7s7vSR3uAui3ICNHB95JjCRwqqxThc6doytDxjzdlNS+L56OK/muArku+juRIAej4ZUPUQNgQQUHk/Ls6Mypb3CY7dnQQAC3v4dfyv1ZXI17QxNWucHA/N/D48ZHXsWBUdaz/UL+onpubCVNoBy0sS3Er5XwpLJH7vtvb7gXDfA==";
+        var handler = new MockHttpMessageHandler();
+        _ = handler.Expect(HttpMethod.Post, uriBuilder.ToString())
+            .WithContent(await requestContent.ReadAsStringAsync())
+            .Respond(HttpStatusCode.OK, new StringContent(responseContent, Encoding.UTF8, MediaTypeNames.Text.Html));
+
+        var responseDecrypt = "{\"recordCountPerPage\":1000,\"recordPage\":0,\"totalRecords\":1,\"betRecords\":[{\"cost\":1.0,\"unit\":1.0,\"lossPrize\":0.0,\"playerPrize\":0.0,\"merchantPrize\":0.0,\"state\":0,\"betTypeCode\":146,\"playerOdds\":1980,\"count\":1,\"multiple\":1,\"channelId\":1,\"subState\":0,\"prizeDetail\":[],\"ip\":\"220.133.218.203\",\"updateTime\":null,\"createTime\":\"2023-12-25T01:24:01Z\",\"note\":\"\",\"winningNumber\":null,\"issueNumber\":\"20231225017\",\"betTypeName\":\"五星总和大小单双\",\"channelName\":\"VR金星1.5分彩\",\"channelCode\":\"VRSSCA\",\"position\":\"万,千,百,十,个\",\"number\":\"总和小\",\"odds\":\"1.97\",\"playerName\":\"4ucmqplxb029\",\"serialNumber\":\"11225092401078552627\",\"merchantCode\":\"PEGA\"}]}";
+        _ = fakeCryptography.DecryptAsync(
+            data: Arg.Is(responseContent),
+            secretKey: Arg.Is(deskey),
+            isDecodeUrl: Arg.Is(false),
+            cancellationToken: Arg.Any<CancellationToken>())
+            .Returns(responseDecrypt);
+
+        var fakeHttpClient = handler.ToHttpClient();
+        var fakeLog = NullLogger<GameApiClient>.Instance;
+        var client = new GameApiClient(
+            fakeLog,
+            fakeSystemClock,
+            fakeCryptography,
+            fakeHttpClient);
+
+        var actual = await client.MerchantQueryBetAsync(
+            apiUrl: apiUrl,
+            version: version,
+            merchantId: merchantId,
+            deskey: deskey,
+            isUpdateTime: isUpdateTime,
+            state: state,
+            startTime: startTime,
+            endTime: endTime,
+            recordPage: recordPage,
+            recordCountPerPage: recordCountPerPage)
+            .ToArrayAsync()
+            ?? Enumerable.Empty<MerchantQueryResponse>();
+
+        Assert.True(actual.Any());
+        Assert.Equal("20231225017", actual.Single().IssueNumber);
+        Assert.Equal("11225092401078552627", actual.Single().SerialNumber);
+        Assert.Equal("1", actual.Single().ChannelId);
+        Assert.Equal("4ucmqplxb029", actual.Single().PlayerName);
+        Assert.Equal(0, actual.Single().State);
+        Assert.Equal(0, actual.Single().SubState);
+        Assert.Equal(1.0m, actual.Single().Cost);
+        Assert.Equal(0.0m, actual.Single().PlayerPrize);
+        Assert.Equal(0.0m, actual.Single().LossPrize);
+        Assert.Equal(DateTimeOffset.Parse("2023-12-25T01:24:01Z"), actual.Single().CreateTime);
+        Assert.Equal(DateTimeOffset.Parse("2023-12-25T01:24:01Z"), actual.Single().UpdateTime);
     }
 }

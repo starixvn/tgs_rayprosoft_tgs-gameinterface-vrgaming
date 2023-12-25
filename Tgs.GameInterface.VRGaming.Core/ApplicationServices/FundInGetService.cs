@@ -10,7 +10,7 @@ internal class FundInGetService(
         var response = await client.WithdrawAsync(
             apiUrl: query.ApiUrl,
             version: query.Version,
-            merchantid: query.Merchantid,
+            merchantId: query.MerchantId,
             deskey: query.Deskey,
             playerName: query.PlayerCode,
             serialNumber: query.OrderId,

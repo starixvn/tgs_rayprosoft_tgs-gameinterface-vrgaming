@@ -4,19 +4,21 @@ using Tgs.ServiceUtility;
 
 namespace Tgs.GameInterface.VRGaming.Core.ApplicationServices;
 
-internal class GameWagerQueryService(
-    IGameApiClient client) : IQueryService<GameWagerQuery, GameWagerResult>
+internal class GameWagerSettledQueryService(
+    IGameApiClient client) : IQueryService<GameWagerSettledQuery, GameWagerResult>
 {
     public async IAsyncEnumerable<GameWagerResult> QueryAsync(
-        GameWagerQuery query,
+        GameWagerSettledQuery query,
         [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         var responses = await client
             .MerchantQueryBetAsync(
             apiUrl: query.ApiUrl,
             version: query.Version,
-            merchantid: query.Merchantid,
+            merchantId: query.MerchantId,
             deskey: query.Deskey,
+            isUpdateTime: true,
+            state: MerchantQueryBetStates.All,
             startTime: query.StartTime,
             endTime: query.EndTime,
             recordPage: query.PageNumber - 1,

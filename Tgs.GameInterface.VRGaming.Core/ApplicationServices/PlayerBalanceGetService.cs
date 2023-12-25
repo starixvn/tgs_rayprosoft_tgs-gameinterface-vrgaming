@@ -10,7 +10,7 @@ internal class PlayerBalanceGetService(
         var response = await client.BalanceAsync(
             apiUrl: query.ApiUrl,
             version: query.Version,
-            merchantid: query.Merchantid,
+            merchantId: query.MerchantId,
             deskey: query.Deskey,
             playerName: query.PlayerCode,
             cancellationToken: cancellationToken)

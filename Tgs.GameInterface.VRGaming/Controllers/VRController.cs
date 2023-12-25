@@ -38,7 +38,7 @@ public class VRController : ControllerBase
         var query = new FundInQuery(
             ApiUrl: source.ApiUrl,
             Version: source.Version,
-            Merchantid: source.Merchantid,
+            MerchantId: source.Merchantid,
             Deskey: source.Deskey,
             PlayerCode: source.PlayerCode,
             OrderId: source.OrderId,
@@ -83,7 +83,7 @@ public class VRController : ControllerBase
         var query = new FundOutQuery(
             ApiUrl: source.ApiUrl,
             Version: source.Version,
-            Merchantid: source.Merchantid,
+            MerchantId: source.Merchantid,
             Deskey: source.Deskey,
             PlayerCode: source.PlayerCode,
             OrderId: source.OrderId,
@@ -129,7 +129,7 @@ public class VRController : ControllerBase
         var query = new FundStatusQuery(
             ApiUrl: source.ApiUrl,
             Version: source.Version,
-            Merchantid: source.Merchantid,
+            MerchantId: source.Merchantid,
             Deskey: source.Deskey,
             PlayerCode: source.PlayerCode,
             OrderId: source.OrderId,
@@ -143,7 +143,7 @@ public class VRController : ControllerBase
     }
 
     /// <summary>
-    /// Games the wager asynchronous.
+    /// Games the wager settled asynchronous.
     /// </summary>
     /// <param name="service">The service.</param>
     /// <param name="source">The source.</param>
@@ -158,33 +158,102 @@ public class VRController : ControllerBase
     ///             "version": "1.0",
     ///             "merchantid": "PEGA",
     ///             "deskey": "8VF408JBV2B406488F2VH2X684T6R6DV",
-    ///             "startTime": "2023-12-22T15:08:00+08:00",
-    ///             "endTime": "2023-12-22T15:13:00+08:00",
+    ///             "startTime": "2023-12-25T11:00:00+08:00",
+    ///             "endTime": "2023-12-25T11:10:00+08:00",
     ///             "pageNumber": 1,
     ///             "pageSize": 1000
     ///         }
     /// </remarks>
-    [HttpPost("game/wager")]
-    public async IAsyncEnumerable<GameWagerResultViewModel> GameWagerAsync(
-        [FromServices] IQueryService<GameWagerQuery, GameWagerResult> service,
+    [HttpPost("game/wager/settled")]
+    public async IAsyncEnumerable<GameWagerResultViewModel> GameWagerSettledAsync(
+        [FromServices] IQueryService<GameWagerSettledQuery, GameWagerResult> service,
         GameWagerViewModel source)
     {
-        var query = new GameWagerQuery(
+        var query = new GameWagerSettledQuery(
             ApiUrl: source.ApiUrl,
             Version: source.Version,
-            Merchantid: source.Merchantid,
+            MerchantId: source.Merchantid,
             Deskey: source.Deskey,
             StartTime: source.StartTime,
             EndTime: source.EndTime,
             PageNumber: source.PageNumber,
             PageSize: source.PageSize);
 
-        var results = await service
-            .QueryAsync(
-                query: query,
-                cancellationToken: HttpContext.RequestAborted)
+        var results = await service.QueryAsync(
+            query: query,
+            cancellationToken: HttpContext.RequestAborted)
             .ToArrayAsync(
-                cancellationToken: HttpContext.RequestAborted)
+            cancellationToken: HttpContext.RequestAborted)
+            .ConfigureAwait(false)
+            ?? Enumerable.Empty<GameWagerResult>();
+
+        if (!results.Any())
+        {
+            yield break;
+        }
+
+        foreach (var result in results)
+        {
+            yield return new GameWagerResultViewModel(
+                ExternalRoundId: result.ExternalRoundId,
+                ExternalWagerId: result.ExternalWagerId,
+                ExternalGameId: result.ExternalGameId,
+                PlayerCode: result.PlayerCode,
+                IsClosed: result.IsClosed,
+                IsCanceled: result.IsCanceled,
+                IsResettle: result.IsResettle,
+                ExternalCreatedOn: result.ExternalCreatedOn,
+                ExternalClosedOn: result.ExternalClosedOn,
+                ExternalResettleOn: result.ExternalResettleOn,
+                Bet: result.Bet,
+                Settle: result.Settle,
+                WinLoss: result.WinLoss,
+                AdditionalData: result.AdditionalData);
+        }
+    }
+
+    /// <summary>
+    /// Games the wager unsettled asynchronous.
+    /// </summary>
+    /// <param name="service">The service.</param>
+    /// <param name="source">The source.</param>
+    /// <returns></returns>
+    /// <remarks>
+    /// <b>Example</b><br />
+    ///
+    ///     Post
+    ///
+    ///         {
+    ///             "apiUrl": "https://fe.vrbetdemo.com/",
+    ///             "version": "1.0",
+    ///             "merchantid": "PEGA",
+    ///             "deskey": "8VF408JBV2B406488F2VH2X684T6R6DV",
+    ///             "startTime": "2023-12-25T09:20:00+08:00",
+    ///             "endTime": "2023-12-25T09:30:00+08:00",
+    ///             "pageNumber": 1,
+    ///             "pageSize": 1000
+    ///         }
+    /// </remarks>
+    [HttpPost("game/wager/unsettled")]
+    public async IAsyncEnumerable<GameWagerResultViewModel> GameWagerUnsettledAsync(
+        [FromServices] IQueryService<GameWagerUnsettledQuery, GameWagerResult> service,
+        GameWagerViewModel source)
+    {
+        var query = new GameWagerUnsettledQuery(
+            ApiUrl: source.ApiUrl,
+            Version: source.Version,
+            MerchantId: source.Merchantid,
+            Deskey: source.Deskey,
+            StartTime: source.StartTime,
+            EndTime: source.EndTime,
+            PageNumber: source.PageNumber,
+            PageSize: source.PageSize);
+
+        var results = await service.QueryAsync(
+            query: query,
+            cancellationToken: HttpContext.RequestAborted)
+            .ToArrayAsync(
+            cancellationToken: HttpContext.RequestAborted)
             .ConfigureAwait(false)
             ?? Enumerable.Empty<GameWagerResult>();
 
@@ -241,7 +310,7 @@ public class VRController : ControllerBase
         var query = new GameUrlQuery(
             ApiUrl: source.ApiUrl,
             Version: source.Version,
-            Merchantid: source.Merchantid,
+            MerchantId: source.Merchantid,
             Deskey: source.Deskey,
             PlayerCode: source.PlayerCode,
             ExternalGameId: source.ExternalGameId);
@@ -279,7 +348,7 @@ public class VRController : ControllerBase
         var query = new PlayerBalanceQuery(
             ApiUrl: source.ApiUrl,
             Version: source.Version,
-            Merchantid: source.Merchantid,
+            MerchantId: source.Merchantid,
             Deskey: source.Deskey,
             PlayerCode: source.PlayerCode);
 
@@ -321,7 +390,7 @@ public class VRController : ControllerBase
         var command = new PlayerLogoutCommand(
             ApiUrl: source.ApiUrl,
             Version: source.Version,
-            Merchantid: source.Merchantid,
+            MerchantId: source.Merchantid,
             Deskey: source.Deskey,
             PlayerCode: source.PlayerCode);
 
@@ -358,7 +427,7 @@ public class VRController : ControllerBase
         var command = new PlayerCreateCommand(
             ApiUrl: source.ApiUrl,
             Version: source.Version,
-            Merchantid: source.Merchantid,
+            MerchantId: source.Merchantid,
             Deskey: source.Deskey,
             PlayerCode: source.PlayerCode);
 

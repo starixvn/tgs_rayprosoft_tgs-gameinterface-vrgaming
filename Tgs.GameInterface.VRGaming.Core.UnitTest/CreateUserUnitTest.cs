@@ -1,10 +1,12 @@
-﻿using System.Net.Mime;
-using System.Net;
+﻿using System.Net;
+
+using System.Net.Mime;
 using System.Text;
 using System.Text.Json.Nodes;
+using Microsoft.Extensions.Logging.Abstractions;
+
 using NSubstitute;
 using RichardSzalay.MockHttp;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Tgs.GameInterface.VRGaming.Core.UnitTest;
 
@@ -15,7 +17,7 @@ public class CreateUserUnitTest
     {
         Uri apiUrl = new Uri("https://fe.vrbetdemo.com/");
         var version = "1.0";
-        var merchantid = "PEGA";
+        var merchantId = "PEGA";
         var deskey = "8VF408JBV2B406488F2VH2X684T6R6DV";
         var playerName = "4ucmqplxb029";
 
@@ -36,7 +38,7 @@ public class CreateUserUnitTest
         var data = new JsonObject
         {
             ["version"] = version,
-            ["id"] = merchantid,
+            ["id"] = merchantId,
             ["data"] = dataEncrypt,
         };
         var requestContent = new StringContent(data.ToJsonString(), Encoding.UTF8, MediaTypeNames.Application.Json);
@@ -66,16 +68,17 @@ public class CreateUserUnitTest
         await client.CreateUserAsync(
             apiUrl: apiUrl,
             version: version,
-            merchantid: merchantid,
+            merchantId: merchantId,
             deskey: deskey,
             playerName: playerName);
     }
+
     [Fact]
     public async void This_Player_Already_Exists()
     {
         Uri apiUrl = new Uri("https://fe.vrbetdemo.com/");
         var version = "1.0";
-        var merchantid = "PEGA";
+        var merchantId = "PEGA";
         var deskey = "8VF408JBV2B406488F2VH2X684T6R6DV";
         var playerName = "4ucmqplxb029";
 
@@ -96,7 +99,7 @@ public class CreateUserUnitTest
         var data = new JsonObject
         {
             ["version"] = version,
-            ["id"] = merchantid,
+            ["id"] = merchantId,
             ["data"] = dataEncrypt,
         };
         var requestContent = new StringContent(data.ToJsonString(), Encoding.UTF8, MediaTypeNames.Application.Json);
@@ -126,7 +129,7 @@ public class CreateUserUnitTest
         await client.CreateUserAsync(
             apiUrl: apiUrl,
             version: version,
-            merchantid: merchantid,
+            merchantId: merchantId,
             deskey: deskey,
             playerName: playerName);
     }

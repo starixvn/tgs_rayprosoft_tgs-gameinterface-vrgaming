@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Version>0.0.1</Version>
+		<Authors>Raypro</Authors>
+		<PackageProjectUrl>https://gitlab.com/rayprosoft/tgs-gameinterface-vrgaming</PackageProjectUrl>
+		<RepositoryUrl>https://gitlab.com/rayprosoft/tgs-gameinterface-vrgaming.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<RootNamespace>Tgs.GameInterface.VRGaming.Client</RootNamespace>
+		<PackageId>Tgs.GameInterface.VRGaming.Client</PackageId>
+		<Title>Tgs.GameInterface.VRGaming.Client</Title>
+		<Description>Tgs.GameInterface.VRGaming.Client</Description>
+		<PackageTags>Tgs GameInterface VRGaming Client</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.59.0" />
+		<PackageReference Include="Grpc.Net.ClientFactory" Version="2.59.0" />
+		<PackageReference Include="Grpc.Tools" Version="2.60.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="PhoenixToolkits.Protobuf.ExtendTypes" Version="0.0.6" />
+	</ItemGroup>
+	<ItemGroup>
+		<Protobuf Include="..\Tgs.GameInterface.VRGaming\Protos\gameinterfacevrgaming.proto" Link="gameinterfacevrgaming.proto" />
+	</ItemGroup>
+
+</Project>

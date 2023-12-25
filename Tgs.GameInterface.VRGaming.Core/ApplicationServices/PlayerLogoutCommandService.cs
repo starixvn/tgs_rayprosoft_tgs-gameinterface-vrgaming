@@ -10,7 +10,7 @@ internal class PlayerLogoutCommandService(IGameApiClient client) : ICommandServi
         => client.KickUserAsync(
             apiUrl: command.ApiUrl,
             version: command.Version,
-            merchantid: command.Merchantid,
+            merchantId: command.MerchantId,
             deskey: command.Deskey,
             playerName: command.PlayerCode,
             cancellationToken: cancellationToken);

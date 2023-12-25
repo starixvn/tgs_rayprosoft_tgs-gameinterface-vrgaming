@@ -1,9 +1,9 @@
 ﻿namespace Tgs.GameInterface.VRGaming.Core.ApplicationServices;
 
-public record GameWagerQuery(
+public record GameWagerSettledQuery(
     Uri ApiUrl,
     string Version,
-    string Merchantid,
+    string MerchantId,
     string Deskey,
     DateTimeOffset StartTime,
     DateTimeOffset EndTime,

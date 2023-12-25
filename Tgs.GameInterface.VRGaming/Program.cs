@@ -5,6 +5,7 @@ using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Tgs.GameInterface.VRGaming;
+using Tgs.GameInterface.VRGaming.GrpcServices;
 
 var filterInstrumentations = new[] { "html", "ico", "png", "jpg" };
 
@@ -112,7 +113,7 @@ _ = app.MapControllers();
 
 _ = app.MapHealthChecks("/healthz");
 
-//_ = app.MapGrpcService<GameInterfaceV8PokerGrpcService>();
+_ = app.MapGrpcService<GameInterfaceVRGamingGrpcService>();
 _ = app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
 app.Run();

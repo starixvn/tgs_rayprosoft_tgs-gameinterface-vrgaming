@@ -3,7 +3,7 @@
 public record GameUrlQuery(
     Uri ApiUrl,
     string Version,
-    string Merchantid,
+    string MerchantId,
     string Deskey,
     string PlayerCode,
     int ExternalGameId);

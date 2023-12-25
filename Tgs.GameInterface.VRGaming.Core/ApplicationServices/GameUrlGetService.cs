@@ -10,7 +10,7 @@ public class GameUrlGetService(IGameApiClient client) : IGetService<GameUrlQuery
         => client.LoginValidateAsync(
             apiUrl: query.ApiUrl,
             version: query.Version,
-            merchantid: query.Merchantid,
+            merchantId: query.MerchantId,
             deskey: query.Deskey,
             playerName: query.PlayerCode,
             channelId: query.ExternalGameId,
