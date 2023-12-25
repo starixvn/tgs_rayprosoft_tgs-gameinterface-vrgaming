@@ -60,7 +60,7 @@ internal class GameInterfaceVRGamingClient(
             .ConfigureAwait(false);
     }
 
-    public async ValueTask<bool> FundStatusAsync(Uri apiUrl, string version, string merchantId, string deskey, string playerCode, string orderId, decimal amount, DateTimeOffset startTime, DateTimeOffset endTime, CancellationToken cancellationToken = default)
+    public async ValueTask<bool> FundStatusAsync(Uri apiUrl, string version, string merchantId, string deskey, string playerCode, string orderId, DateTimeOffset startTime, DateTimeOffset endTime, CancellationToken cancellationToken = default)
     {
         var request = new FundStatusRequest
         {

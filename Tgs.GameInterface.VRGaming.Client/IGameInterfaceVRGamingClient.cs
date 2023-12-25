@@ -10,7 +10,7 @@ public interface IGameInterfaceVRGamingClient
 
     ValueTask<FundReply> FundOutAsync(Uri apiUrl, string version, string merchantId, string deskey, string playerCode, string orderId, decimal amount, CancellationToken cancellationToken = default);
 
-    ValueTask<bool> FundStatusAsync(Uri apiUrl, string version, string merchantId, string deskey, string playerCode, string orderId, decimal amount, DateTimeOffset startTime, DateTimeOffset endTime, CancellationToken cancellationToken = default);
+    ValueTask<bool> FundStatusAsync(Uri apiUrl, string version, string merchantId, string deskey, string playerCode, string orderId, DateTimeOffset startTime, DateTimeOffset endTime, CancellationToken cancellationToken = default);
 
     IAsyncEnumerable<GameWagerInfo> GameWagerUnsettledAsync(Uri apiUrl, string version, string merchantId, string deskey, DateTimeOffset startTime, DateTimeOffset endTime, int pageNumber = 1, int pageSize = 1000, CancellationToken cancellationToken = default);
 
