@@ -9,7 +9,9 @@ data:
     {
       "Logging": {
         "LogLevel": {
-          "Default": "Warning"
+          "Default": "Warning",
+          "Microsoft.AspNetCore": "Warning",
+          "Tgs.GameInterface.VRGaming.Core": "Information"
         }
       },
       "Kestrel": {
