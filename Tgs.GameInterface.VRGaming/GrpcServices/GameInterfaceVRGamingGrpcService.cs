@@ -155,7 +155,7 @@ public class GameInterfaceVRGamingGrpcService(
                 ExternalResettleOn = selector.ExternalResettleOn.ToTimestamp(),
                 Bet = selector.Bet,
                 Settle = selector.Settle,
-                PlayerWinLoss = selector.WinLoss,
+                WinLoss = selector.WinLoss,
                 AdditionalData = selector.AdditionalData
             }));
         }
@@ -200,7 +200,7 @@ public class GameInterfaceVRGamingGrpcService(
                 ExternalResettleOn = selector.ExternalResettleOn.ToTimestamp(),
                 Bet = selector.Bet,
                 Settle = selector.Settle,
-                PlayerWinLoss = selector.WinLoss,
+                WinLoss = selector.WinLoss,
                 AdditionalData = selector.AdditionalData
             }));
         }

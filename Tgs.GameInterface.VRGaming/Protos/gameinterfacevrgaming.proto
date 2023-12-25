@@ -128,7 +128,7 @@ message GameWagerInfo {
 	google.protobuf.Timestamp external_resettle_on = 10;
 	phoenix.protobuf.DecimalValue bet = 11;
 	phoenix.protobuf.DecimalValue settle = 12;
-	phoenix.protobuf.DecimalValue player_winLoss = 13;
+	phoenix.protobuf.DecimalValue win_loss = 13;
 	string additional_data = 14;
 }
 
