@@ -18,6 +18,8 @@ fullnameOverride: "game-gameinterface-vr"
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
+  # Automatically mount a ServiceAccount's API credentials?
+  automount: true
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
@@ -52,7 +54,7 @@ service:
 
 ingress:
   enabled: false
-  className: "nginx"
+  className: ""
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
