@@ -4,15 +4,15 @@ namespace Tgs.GameInterface.VRGaming.Core.ApplicationServices;
 
 public class GameUrlGetService(IGameApiClient client) : IGetService<GameUrlQuery, string>
 {
-    public ValueTask<string> GetAsync(
-        GameUrlQuery query,
-        CancellationToken cancellationToken = default)
-        => client.LoginValidateAsync(
-            apiUrl: query.ApiUrl,
-            version: query.Version,
-            merchantId: query.MerchantId,
-            deskey: query.Deskey,
-            playerName: query.PlayerCode,
-            channelId: query.ExternalGameId,
-            cancellationToken: cancellationToken);
+	public ValueTask<string> GetAsync(
+		GameUrlQuery query,
+		CancellationToken cancellationToken = default)
+		=> client.LoginValidateAsync(
+			apiUrl: query.ApiUrl,
+			version: query.Version,
+			merchantId: query.MerchantId,
+			deskey: query.Deskey,
+			playerName: query.PlayerCode,
+			channelId: query.ExternalGameId,
+			cancellationToken: cancellationToken);
 }

@@ -1,141 +1,140 @@
-﻿using System.Net.Mime;
-using System.Net;
+﻿using System.Net;
+using System.Net.Mime;
 using System.Text;
 using System.Text.Json.Nodes;
+using Microsoft.Extensions.Logging.Abstractions;
 using NSubstitute;
 using RichardSzalay.MockHttp;
-using Microsoft.Extensions.Logging.Abstractions;
-using System.Numerics;
 
 namespace Tgs.GameInterface.VRGaming.Core.UnitTest;
 
 public class BalanceUnitTest
 {
-    [Fact]
-    public async void Normal_Process()
-    {
-        Uri apiUrl = new Uri("https://fe.vrbetdemo.com/");
-        var version = "1.0";
-        var merchantId = "PEGA";
-        var deskey = "8VF408JBV2B406488F2VH2X684T6R6DV";
-        var playerName = "4ucmqplxb029";
+	[Fact]
+	public async void Normal_Process()
+	{
+		Uri apiUrl = new Uri("https://fe.vrbetdemo.com/");
+		var version = "1.0";
+		var merchantId = "PEGA";
+		var deskey = "8VF408JBV2B406488F2VH2X684T6R6DV";
+		var playerName = "4ucmqplxb029";
 
-        var fakeCryptography = Substitute.For<IAesCryptographyUtensil>();
-        var fakeSystemClock = Substitute.For<ISystemClock>();
+		var fakeCryptography = Substitute.For<IAesCryptographyUtensil>();
+		var fakeSystemClock = Substitute.For<ISystemClock>();
 
-        var parameters = new JsonObject
-        {
-            ["playerName"] = playerName
-        };
-        var dataEncrypt = "WK7HCiRT7YbaumsZuZp7dFee8OB106fIb6BPo8mu2a4=";
-        _ = fakeCryptography.EncryptionAsync(
-            data: Arg.Is(parameters.ToJsonString()),
-            secretKey: Arg.Is(deskey),
-            cancellationToken: Arg.Any<CancellationToken>())
-            .Returns(dataEncrypt);
+		var parameters = new JsonObject
+		{
+			["playerName"] = playerName
+		};
+		var dataEncrypt = "WK7HCiRT7YbaumsZuZp7dFee8OB106fIb6BPo8mu2a4=";
+		_ = fakeCryptography.EncryptionAsync(
+			data: Arg.Is(parameters.ToJsonString()),
+			secretKey: Arg.Is(deskey),
+			cancellationToken: Arg.Any<CancellationToken>())
+			.Returns(dataEncrypt);
 
-        var data = new JsonObject
-        {
-            ["version"] = version,
-            ["id"] = merchantId,
-            ["data"] = dataEncrypt,
-        };
-        var requestContent = new StringContent(data.ToJsonString(), Encoding.UTF8, MediaTypeNames.Application.Json);
-        var uriBuilder = new UriBuilder(new Uri(apiUrl, "/UserWallet/Balance"));
-        var responseContent = "WK7HCiRT7YbaumsZuZp7dFJ+5nwAQaP7ha9961v/xSyclkPFanSzRwpHFvWagQ++D39ES4Ad64kEC0XQOsXEcA==";
-        var handler = new MockHttpMessageHandler();
-        _ = handler.Expect(HttpMethod.Post, uriBuilder.ToString())
-            .WithContent(await requestContent.ReadAsStringAsync())
-            .Respond(HttpStatusCode.OK, new StringContent(responseContent, Encoding.UTF8, MediaTypeNames.Text.Html));
+		var data = new JsonObject
+		{
+			["version"] = version,
+			["id"] = merchantId,
+			["data"] = dataEncrypt,
+		};
+		var requestContent = new StringContent(data.ToJsonString(), Encoding.UTF8, MediaTypeNames.Application.Json);
+		var uriBuilder = new UriBuilder(new Uri(apiUrl, "/UserWallet/Balance"));
+		var responseContent = "WK7HCiRT7YbaumsZuZp7dFJ+5nwAQaP7ha9961v/xSyclkPFanSzRwpHFvWagQ++D39ES4Ad64kEC0XQOsXEcA==";
+		var handler = new MockHttpMessageHandler();
+		_ = handler.Expect(HttpMethod.Post, uriBuilder.ToString())
+			.WithContent(await requestContent.ReadAsStringAsync())
+			.Respond(HttpStatusCode.OK, new StringContent(responseContent, Encoding.UTF8, MediaTypeNames.Text.Html));
 
-        var responseDecrypt = "{\"playerName\":\"4ucmqplxb029\",\"balance\":0.0,\"games\":[]}";
-        _ = fakeCryptography.DecryptAsync(
-            data: Arg.Is(responseContent),
-            secretKey: Arg.Is(deskey),
-            isDecodeUrl: Arg.Is(false),
-            cancellationToken: Arg.Any<CancellationToken>())
-            .Returns(responseDecrypt);
+		var responseDecrypt = "{\"playerName\":\"4ucmqplxb029\",\"balance\":0.0,\"games\":[]}";
+		_ = fakeCryptography.DecryptAsync(
+			data: Arg.Is(responseContent),
+			secretKey: Arg.Is(deskey),
+			isDecodeUrl: Arg.Is(false),
+			cancellationToken: Arg.Any<CancellationToken>())
+			.Returns(responseDecrypt);
 
-        var fakeHttpClient = handler.ToHttpClient();
-        var fakeLog = NullLogger<GameApiClient>.Instance;
-        var client = new GameApiClient(
-            fakeLog,
-            fakeSystemClock,
-            fakeCryptography,
-            fakeHttpClient);
+		var fakeHttpClient = handler.ToHttpClient();
+		var fakeLog = NullLogger<GameApiClient>.Instance;
+		var client = new GameApiClient(
+			fakeLog,
+			fakeSystemClock,
+			fakeCryptography,
+			fakeHttpClient);
 
-        var actual = await client.BalanceAsync(
-            apiUrl: apiUrl,
-            version: version,
-            merchantId: merchantId,
-            deskey: deskey,
-            playerName: playerName);
+		var actual = await client.BalanceAsync(
+			apiUrl: apiUrl,
+			version: version,
+			merchantId: merchantId,
+			deskey: deskey,
+			playerName: playerName);
 
-        Assert.True(actual.IsPlayerExist);
-        Assert.Equal(0.0m, actual.Balance);
-    }
-    [Fact]
-    public async void This_Player_Does_Not_Exist()
-    {
-        Uri apiUrl = new Uri("https://fe.vrbetdemo.com/");
-        var version = "1.0";
-        var merchantId = "PEGA";
-        var deskey = "8VF408JBV2B406488F2VH2X684T6R6DV";
-        var playerName = "4ucmqplxb029";
+		Assert.True(actual.IsPlayerExist);
+		Assert.Equal(0.0m, actual.Balance);
+	}
 
-        var fakeCryptography = Substitute.For<IAesCryptographyUtensil>();
-        var fakeSystemClock = Substitute.For<ISystemClock>();
+	[Fact]
+	public async void This_Player_Does_Not_Exist()
+	{
+		Uri apiUrl = new Uri("https://fe.vrbetdemo.com/");
+		var version = "1.0";
+		var merchantId = "PEGA";
+		var deskey = "8VF408JBV2B406488F2VH2X684T6R6DV";
+		var playerName = "4ucmqplxb029";
 
-        var parameters = new JsonObject
-        {
-            ["playerName"] = playerName
-        };
+		var fakeCryptography = Substitute.For<IAesCryptographyUtensil>();
+		var fakeSystemClock = Substitute.For<ISystemClock>();
 
-        var dataEncrypt = "WK7HCiRT7YbaumsZuZp7dFee8OB106fIb6BPo8mu2a4=";
-        _ = fakeCryptography.EncryptionAsync(
-            data: Arg.Is(parameters.ToJsonString()),
-            secretKey: Arg.Is(deskey),
-            cancellationToken: Arg.Any<CancellationToken>())
-            .Returns(dataEncrypt);
-        var data = new JsonObject
-        {
-            ["version"] = version,
-            ["id"] = merchantId,
-            ["data"] = dataEncrypt,
-        };
-        var requestContent = new StringContent(data.ToJsonString(), Encoding.UTF8, MediaTypeNames.Application.Json);
-        var uriBuilder = new UriBuilder(new Uri(apiUrl, "/UserWallet/Balance"));
-        var responseContent = "WK7HCiRT7YbaumsZuZp7dFJ+5nwAQaP7ha9961v/xSygk9OJkB8dSFSb2zIZ3nz++E67qaQ4j4njI5F9sTA/dA==";
-        var handler = new MockHttpMessageHandler();
-        _ = handler.Expect(HttpMethod.Post, uriBuilder.ToString())
-            .WithContent(await requestContent.ReadAsStringAsync())
-            .Respond(HttpStatusCode.OK, new StringContent(responseContent, Encoding.UTF8, MediaTypeNames.Text.Html));
+		var parameters = new JsonObject
+		{
+			["playerName"] = playerName
+		};
 
-        var responseDecrypt = "{\"playerName\":\"4ucmqplxb029\",\"balance\":-1.0,\"games\":[]}";
-        _ = fakeCryptography.DecryptAsync(
-            data: Arg.Is(responseContent),
-            secretKey: Arg.Is(deskey),
-            isDecodeUrl: Arg.Is(false),
-            cancellationToken: Arg.Any<CancellationToken>())
-            .Returns(responseDecrypt);
+		var dataEncrypt = "WK7HCiRT7YbaumsZuZp7dFee8OB106fIb6BPo8mu2a4=";
+		_ = fakeCryptography.EncryptionAsync(
+			data: Arg.Is(parameters.ToJsonString()),
+			secretKey: Arg.Is(deskey),
+			cancellationToken: Arg.Any<CancellationToken>())
+			.Returns(dataEncrypt);
+		var data = new JsonObject
+		{
+			["version"] = version,
+			["id"] = merchantId,
+			["data"] = dataEncrypt,
+		};
+		var requestContent = new StringContent(data.ToJsonString(), Encoding.UTF8, MediaTypeNames.Application.Json);
+		var uriBuilder = new UriBuilder(new Uri(apiUrl, "/UserWallet/Balance"));
+		var responseContent = "WK7HCiRT7YbaumsZuZp7dFJ+5nwAQaP7ha9961v/xSygk9OJkB8dSFSb2zIZ3nz++E67qaQ4j4njI5F9sTA/dA==";
+		var handler = new MockHttpMessageHandler();
+		_ = handler.Expect(HttpMethod.Post, uriBuilder.ToString())
+			.WithContent(await requestContent.ReadAsStringAsync())
+			.Respond(HttpStatusCode.OK, new StringContent(responseContent, Encoding.UTF8, MediaTypeNames.Text.Html));
 
-        var fakeHttpClient = handler.ToHttpClient();
-        var fakeLog = NullLogger<GameApiClient>.Instance;
-        var client = new GameApiClient(
-            fakeLog,
-            fakeSystemClock,
-            fakeCryptography,
-            fakeHttpClient);
+		var responseDecrypt = "{\"playerName\":\"4ucmqplxb029\",\"balance\":-1.0,\"games\":[]}";
+		_ = fakeCryptography.DecryptAsync(
+			data: Arg.Is(responseContent),
+			secretKey: Arg.Is(deskey),
+			isDecodeUrl: Arg.Is(false),
+			cancellationToken: Arg.Any<CancellationToken>())
+			.Returns(responseDecrypt);
 
-        var actual = await client.BalanceAsync(
-            apiUrl: apiUrl,
-            version: version,
-            merchantId: merchantId,
-            deskey: deskey,
-            playerName: playerName);
+		var fakeHttpClient = handler.ToHttpClient();
+		var fakeLog = NullLogger<GameApiClient>.Instance;
+		var client = new GameApiClient(
+			fakeLog,
+			fakeSystemClock,
+			fakeCryptography,
+			fakeHttpClient);
 
-        Assert.False(actual.IsPlayerExist);
-        Assert.Equal(-1.0m, actual.Balance);
+		var actual = await client.BalanceAsync(
+			apiUrl: apiUrl,
+			version: version,
+			merchantId: merchantId,
+			deskey: deskey,
+			playerName: playerName);
 
-    }
+		Assert.False(actual.IsPlayerExist);
+		Assert.Equal(-1.0m, actual.Balance);
+	}
 }

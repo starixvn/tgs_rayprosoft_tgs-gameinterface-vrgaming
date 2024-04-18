@@ -1,10 +1,10 @@
 ﻿namespace Tgs.GameInterface.VRGaming.Core.ApplicationServices;
 
 public record FundInQuery(
-    Uri ApiUrl,
-    string Version,
-    string MerchantId,
-    string Deskey,
-    string PlayerCode,
-    string OrderId,
-    decimal Amount);
+	Uri ApiUrl,
+	string Version,
+	string MerchantId,
+	string Deskey,
+	string PlayerCode,
+	string OrderId,
+	decimal Amount);

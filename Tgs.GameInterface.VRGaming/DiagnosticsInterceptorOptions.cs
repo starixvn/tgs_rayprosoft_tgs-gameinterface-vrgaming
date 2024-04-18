@@ -4,6 +4,6 @@ namespace Tgs.GameInterface.VRGaming;
 
 public class DiagnosticsInterceptorOptions
 {
-    public ActivitySource InterceptorActivitySource { get; set; } =
-        new ActivitySource($"Tgs.GameInterface.V8Poker.DiagnosticsInterceptor");
+	public ActivitySource InterceptorActivitySource { get; set; } =
+		new ActivitySource($"Tgs.GameInterface.VRGaming.DiagnosticsInterceptor");
 }
