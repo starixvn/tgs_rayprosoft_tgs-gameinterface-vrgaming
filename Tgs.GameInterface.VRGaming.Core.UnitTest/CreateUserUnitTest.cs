@@ -13,7 +13,7 @@ namespace Tgs.GameInterface.VRGaming.Core.UnitTest;
 public class CreateUserUnitTest
 {
 	[Fact]
-	public async void Normal_Process()
+	public async Task Normal_Process()
 	{
 		Uri apiUrl = new Uri("https://fe.vrbetdemo.com/");
 		var version = "1.0";
@@ -74,7 +74,7 @@ public class CreateUserUnitTest
 	}
 
 	[Fact]
-	public async void This_Player_Already_Exists()
+	public async Task This_Player_Already_Exists()
 	{
 		Uri apiUrl = new Uri("https://fe.vrbetdemo.com/");
 		var version = "1.0";

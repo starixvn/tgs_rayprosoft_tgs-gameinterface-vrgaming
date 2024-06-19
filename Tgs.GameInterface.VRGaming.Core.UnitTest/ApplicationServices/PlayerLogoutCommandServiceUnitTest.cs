@@ -7,7 +7,7 @@ namespace Tgs.GameInterface.VRGaming.Core.UnitTest.ApplicationServices;
 public class PlayerLogoutCommandServiceUnitTest
 {
 	[Fact]
-	public async void Normal_Process()
+	public async Task Normal_Process()
 	{
 		var command = new PlayerLogoutCommand(
 			ApiUrl: new Uri("https://fe.vrbetdemo.com/"),

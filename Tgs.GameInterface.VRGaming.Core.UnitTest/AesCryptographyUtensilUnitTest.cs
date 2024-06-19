@@ -6,7 +6,7 @@ namespace Tgs.GameInterface.VRGaming.Core.UnitTest;
 public class AesCryptographyUtensilUnitTest
 {
 	[Fact]
-	public async void UserWallet_Balance_Encryption()
+	public async Task UserWallet_Balance_Encryption()
 	{
 		var data = new JsonObject
 		{
@@ -23,7 +23,7 @@ public class AesCryptographyUtensilUnitTest
 	}
 
 	[Fact]
-	public async void Account_CreateUser_Encryption()
+	public async Task Account_CreateUser_Encryption()
 	{
 		var data = new JsonObject
 		{
@@ -40,7 +40,7 @@ public class AesCryptographyUtensilUnitTest
 	}
 
 	[Fact]
-	public async void Login_Validate_Encryption()
+	public async Task Login_Validate_Encryption()
 	{
 		var data = new JsonObject
 		{
@@ -61,7 +61,7 @@ public class AesCryptographyUtensilUnitTest
 	}
 
 	[Fact]
-	public async void Account_CreateUser_Decrypt()
+	public async Task Account_CreateUser_Decrypt()
 	{
 		var data = "0pbZCPdihj4cMF7Gdjw5sg==";
 		var secretKey = "8VF408JBV2B406488F2VH2X684T6R6DV";

@@ -12,7 +12,7 @@ namespace Tgs.GameInterface.VRGaming.Core.UnitTest;
 public class MerchantQueryBetUnitTest
 {
 	[Fact]
-	public async void Settled()
+	public async Task Settled()
 	{
 		Uri apiUrl = new Uri("https://fe.vrbetdemo.com/");
 		var version = "1.0";
@@ -105,7 +105,7 @@ public class MerchantQueryBetUnitTest
 	}
 
 	[Fact]
-	public async void No_data()
+	public async Task No_data()
 	{
 		Uri apiUrl = new Uri("https://fe.vrbetdemo.com/");
 		var version = "1.0";
@@ -187,7 +187,7 @@ public class MerchantQueryBetUnitTest
 	}
 
 	[Fact]
-	public async void Unsettled()
+	public async Task Unsettled()
 	{
 		Uri apiUrl = new Uri("https://fe.vrbetdemo.com/");
 		var version = "1.0";

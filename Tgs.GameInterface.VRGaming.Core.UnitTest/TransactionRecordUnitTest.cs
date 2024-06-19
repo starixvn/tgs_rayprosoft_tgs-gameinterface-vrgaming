@@ -12,7 +12,7 @@ namespace Tgs.GameInterface.VRGaming.Core.UnitTest;
 public class TransactionRecordUnitTest
 {
 	[Fact]
-	public async void This_order_is_established()
+	public async Task This_order_is_established()
 	{
 		Uri apiUrl = new Uri("https://fe.vrbetdemo.com/");
 		var version = "1.0";
@@ -86,7 +86,7 @@ public class TransactionRecordUnitTest
 	}
 
 	[Fact]
-	public async void This_order_is_not_established()
+	public async Task This_order_is_not_established()
 	{
 		Uri apiUrl = new Uri("https://fe.vrbetdemo.com/");
 		var version = "1.0";
@@ -160,7 +160,7 @@ public class TransactionRecordUnitTest
 	}
 
 	[Fact]
-	public async void Insufficient_balance()
+	public async Task Insufficient_balance()
 	{
 		Uri apiUrl = new Uri("https://fe.vrbetdemo.com/");
 		var version = "1.0";

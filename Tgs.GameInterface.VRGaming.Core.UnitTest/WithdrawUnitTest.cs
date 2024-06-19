@@ -11,7 +11,7 @@ namespace Tgs.GameInterface.VRGaming.Core.UnitTest;
 public class WithdrawUnitTest
 {
 	[Fact]
-	public async void Normal_Process()
+	public async Task Normal_Process()
 	{
 		Uri apiUrl = new Uri("https://fe.vrbetdemo.com/");
 		var version = "1.0";

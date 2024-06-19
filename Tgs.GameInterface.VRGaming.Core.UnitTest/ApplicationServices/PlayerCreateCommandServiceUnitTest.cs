@@ -7,7 +7,7 @@ namespace Tgs.GameInterface.VRGaming.Core.UnitTest.ApplicationServices;
 public class PlayerCreateCommandServiceUnitTest
 {
 	[Fact]
-	public async void Normal_Process()
+	public async Task Normal_Process()
 	{
 		var command = new PlayerCreateCommand(
 			ApiUrl: new Uri("https://fe.vrbetdemo.com/"),
