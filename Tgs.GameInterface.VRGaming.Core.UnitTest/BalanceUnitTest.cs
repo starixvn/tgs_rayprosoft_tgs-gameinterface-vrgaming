@@ -11,7 +11,7 @@ namespace Tgs.GameInterface.VRGaming.Core.UnitTest;
 public class BalanceUnitTest
 {
 	[Fact]
-	public async void Normal_Process()
+	public async Task Normal_Process()
 	{
 		Uri apiUrl = new Uri("https://fe.vrbetdemo.com/");
 		var version = "1.0";
@@ -75,7 +75,7 @@ public class BalanceUnitTest
 	}
 
 	[Fact]
-	public async void This_Player_Does_Not_Exist()
+	public async Task This_Player_Does_Not_Exist()
 	{
 		Uri apiUrl = new Uri("https://fe.vrbetdemo.com/");
 		var version = "1.0";

@@ -7,7 +7,7 @@ namespace Tgs.GameInterface.VRGaming.Core.UnitTest.ApplicationServices;
 public class GameWagerSettledQueryServiceUnitTest
 {
 	[Fact]
-	public async void Winning()
+	public async Task Winning()
 	{
 		var query = new GameWagerSettledQuery(
 			ApiUrl: new Uri("https://fe.vrbetdemo.com/"),
@@ -76,7 +76,7 @@ public class GameWagerSettledQueryServiceUnitTest
 	}
 
 	[Fact]
-	public async void Winning_is_changed_to_Not_Winning()
+	public async Task Winning_is_changed_to_Not_Winning()
 	{
 		var query = new GameWagerSettledQuery(
 			ApiUrl: new Uri("https://fe.vrbetdemo.com/"),
@@ -145,7 +145,7 @@ public class GameWagerSettledQueryServiceUnitTest
 	}
 
 	[Fact]
-	public async void Not_Winning()
+	public async Task Not_Winning()
 	{
 		var query = new GameWagerSettledQuery(
 			ApiUrl: new Uri("https://fe.vrbetdemo.com/"),
@@ -214,7 +214,7 @@ public class GameWagerSettledQueryServiceUnitTest
 	}
 
 	[Fact]
-	public async void Not_winning_prize_changed_to_winning_prize()
+	public async Task Not_winning_prize_changed_to_winning_prize()
 	{
 		var query = new GameWagerSettledQuery(
 			ApiUrl: new Uri("https://fe.vrbetdemo.com/"),
@@ -283,7 +283,7 @@ public class GameWagerSettledQueryServiceUnitTest
 	}
 
 	[Fact]
-	public async void Cancel_order()
+	public async Task Cancel_order()
 	{
 		var query = new GameWagerSettledQuery(
 			ApiUrl: new Uri("https://fe.vrbetdemo.com/"),
@@ -352,7 +352,7 @@ public class GameWagerSettledQueryServiceUnitTest
 	}
 
 	[Fact]
-	public async void Winning_the_lottery_becomes_winning_again__The_amount_is_again_higher_than_the_original_winning_amount()
+	public async Task Winning_the_lottery_becomes_winning_again__The_amount_is_again_higher_than_the_original_winning_amount()
 	{
 		//中獎 變成 再次中獎(再次中獎的金額高出原本中獎的金額)
 		var query = new GameWagerSettledQuery(
@@ -422,7 +422,7 @@ public class GameWagerSettledQueryServiceUnitTest
 	}
 
 	[Fact]
-	public async void Winning_the_lottery_becomes_winning_again__The_amount_won_again_is_lower_than_the_original_winning_amount()
+	public async Task Winning_the_lottery_becomes_winning_again__The_amount_won_again_is_lower_than_the_original_winning_amount()
 	{
 		//中獎 變成 再次中獎(再次中獎的金額低於原本中獎的金額)
 		var query = new GameWagerSettledQuery(

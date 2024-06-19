@@ -7,7 +7,7 @@ namespace Tgs.GameInterface.VRGaming.Core.UnitTest.ApplicationServices;
 public class FundOutGetServiceUnitTest
 {
 	[Fact]
-	public async void Normal_Process()
+	public async Task Normal_Process()
 	{
 		var query = new FundOutQuery(
 			ApiUrl: new Uri("https://fe.vrbetdemo.com/"),

@@ -7,7 +7,7 @@ namespace Tgs.GameInterface.VRGaming.Core.UnitTest.ApplicationServices;
 public class GameWagerUnsettledQueryServiceUnitTest
 {
 	[Fact]
-	public async void Normal_Process()
+	public async Task Normal_Process()
 	{
 		var query = new GameWagerUnsettledQuery(
 			ApiUrl: new Uri("https://fe.vrbetdemo.com/"),
@@ -76,7 +76,7 @@ public class GameWagerUnsettledQueryServiceUnitTest
 	}
 
 	[Fact]
-	public async void No_data()
+	public async Task No_data()
 	{
 		var query = new GameWagerUnsettledQuery(
 			ApiUrl: new Uri("https://fe.vrbetdemo.com/"),

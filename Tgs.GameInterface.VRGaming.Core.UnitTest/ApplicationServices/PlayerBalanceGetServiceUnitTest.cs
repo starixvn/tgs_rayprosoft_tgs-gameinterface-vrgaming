@@ -7,7 +7,7 @@ namespace Tgs.GameInterface.VRGaming.Core.UnitTest.ApplicationServices;
 public class PlayerBalanceGetServiceUnitTest
 {
 	[Fact]
-	public async void Normal_Process()
+	public async Task Normal_Process()
 	{
 		var query = new PlayerBalanceQuery(
 			ApiUrl: new Uri("https://fe.vrbetdemo.com/"),
