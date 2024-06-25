@@ -16,10 +16,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="Protos\gameinterfacevrgaming.proto" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="FluentdForward.OpenTelemetry.MessagePack" Version="0.3.8" />
 		<PackageReference Include="Grpc.AspNetCore" Version="2.63.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.1" />
@@ -40,10 +36,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Tgs.GameInterface.VRGaming.Core\Tgs.GameInterface.VRGaming.Core.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Protobuf Include="Protos\gameinterfacevrgaming.proto" />
+		<ProjectReference Include="..\Tgs.GameInterface.VRGaming.Protos\Tgs.GameInterface.VRGaming.Protos.csproj" />
 	</ItemGroup>
 
 </Project>
