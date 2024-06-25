@@ -5,7 +5,7 @@ import "google/protobuf/timestamp.proto";
 
 option csharp_namespace = "Tgs.GameInterface.VRGaming.Protos";
 
-package gameinterfacevrgaming;
+package GameInterfaceVRGaming;
 
 // The greeting service definition.
 service GameInterfaceVRGaming {

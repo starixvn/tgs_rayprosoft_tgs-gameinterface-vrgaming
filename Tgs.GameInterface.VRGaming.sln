@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tgs.GameInterface.VRGaming.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tgs.GameInterface.VRGaming.Core.UnitTest", "Tgs.GameInterface.VRGaming.Core.UnitTest\Tgs.GameInterface.VRGaming.Core.UnitTest.csproj", "{60F4FDC9-7E48-444D-A805-32F24CADF723}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tgs.GameInterface.VRGaming.Client", "Tgs.GameInterface.VRGaming.Client\Tgs.GameInterface.VRGaming.Client.csproj", "{398FFC35-50D9-4756-8781-F617BD485023}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tgs.GameInterface.VRGaming.Client", "Tgs.GameInterface.VRGaming.Client\Tgs.GameInterface.VRGaming.Client.csproj", "{398FFC35-50D9-4756-8781-F617BD485023}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tgs.GameInterface.VRGaming.Protos", "Tgs.GameInterface.VRGaming.Protos\Tgs.GameInterface.VRGaming.Protos.csproj", "{8A6ACEF2-F4A3-4AE3-AC0F-1F8A660E2AED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{398FFC35-50D9-4756-8781-F617BD485023}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{398FFC35-50D9-4756-8781-F617BD485023}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{398FFC35-50D9-4756-8781-F617BD485023}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A6ACEF2-F4A3-4AE3-AC0F-1F8A660E2AED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A6ACEF2-F4A3-4AE3-AC0F-1F8A660E2AED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A6ACEF2-F4A3-4AE3-AC0F-1F8A660E2AED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A6ACEF2-F4A3-4AE3-AC0F-1F8A660E2AED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
